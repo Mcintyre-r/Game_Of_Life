@@ -1,0 +1,16 @@
+.cell {
+    border: solid 1px white
+}
+.wrap {
+    display: flex;
+    justify-content: center;
+    
+}
+.box {
+    /* min-width: 550px; */
+}
+
+.cell:hover {
+    border-color: black;
+    
+}
