@@ -174,7 +174,7 @@ function App() {
       </div>
       <div className='box'>
         {/* <h1 style={{marginBottom: '40px'}}>Conway's Game of Life</h1> */}
-        <img src={logo}/>
+        <img src={logo} alt='logo'/>
 
         <ul style={{marginBottom: '30px'}}>
           <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with less than two live neighbours dies by underpopulation.</li>
