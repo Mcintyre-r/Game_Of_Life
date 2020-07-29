@@ -7,7 +7,7 @@ body{
 }
 .cellHov{
     border-radius: 50%;
-    opacity: 70%;
+    opacity: .7;
     border: 1px dashed rgba(255,255,255, .1);
 }
 
