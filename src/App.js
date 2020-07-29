@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
 import './App.css'
+import logo from './assets/hasbro.png'
 
 
 const numRows = 20;
@@ -172,7 +173,8 @@ function App() {
       )}
       </div>
       <div className='box'>
-        <h1 style={{marginBottom: '40px'}}>Conway's Game of Life</h1>
+        {/* <h1 style={{marginBottom: '40px'}}>Conway's Game of Life</h1> */}
+        <img src={logo}/>
 
         <ul style={{marginBottom: '30px'}}>
           <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with less than two live neighbours dies by underpopulation.</li>
