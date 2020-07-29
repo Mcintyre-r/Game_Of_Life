@@ -172,14 +172,50 @@ function App() {
       )}
       </div>
       <div className='box'>
-        <h1>Conway's</h1>
-        <h2>Game of Life</h2>
-        <ul>
-          <li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
-          <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
-          <li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
-          <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+        <h1 style={{marginBottom: '40px'}}>Conway's Game of Life</h1>
+
+        <ul style={{marginBottom: '30px'}}>
+          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with less than two live neighbours dies by underpopulation.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with two to three live neighbours live on.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with more than three live neighbours die by overpopulation.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px'}}>Dead cell with three live neighbours becomes a live cell.</li>
         </ul>
+        <div style={{display: 'flex', alignItems: 'center',justifyContent: 'space-around'}}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+          <div style={{
+                    borderRadius: '50%',
+                    margin: '0 10px',
+                    width:20,
+                    height:20,
+                    backgroundColor:'#FF5733',
+                  }}/>
+          <div>Living</div>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+          <div style={{
+                    borderRadius: '50%',
+                    margin: '0 10px',
+                    width:20,
+                    height:20,
+                    backgroundColor:'#F98B73',
+                  }}/>
+          <div>Under Populated</div>
+          </div>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+          <div style={{
+                    borderRadius: '50%',
+                    width:20,
+                    height:20,
+                    backgroundColor:'#941B00',
+                  }}/>
+          <div>Over Populated</div>
+          </div>
+        </div>
+ 
+          
+          
+          
+        
       </div>
     </div>
     <div className='wrap'>
