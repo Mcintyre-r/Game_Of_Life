@@ -218,8 +218,9 @@ function App() {
         
       </div>
     </div>
+    <div className='wrap' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click to toggle cells live or dead</div>
     <div className='wrap'>
-      <div className='button' onClick={()=>{
+      <div className={running? 'button': 'buttonNorm'} onClick={()=>{
         setRunning(!running);
         if(!running){
           runningRef.current = true;
@@ -230,8 +231,8 @@ function App() {
         <span></span>
         <span></span>
         <span></span>
-        {running? "stop":"start"}</div>
-      <div className='button' onClick={()=>{
+        {running? "stop.":"start"}</div>
+      <div className='buttonNorm' onClick={()=>{
         setGrid(generateEmptyGrid())
       }}>
         <span></span>
@@ -239,7 +240,7 @@ function App() {
         <span></span>
         <span></span>
         clear</div>
-      <div className='button' onClick={()=>{
+      <div className='buttonNorm' onClick={()=>{
           const rows = [];
           for (let i = 0; i < numRows; i++) {
             rows.push(Array.from(Array(numCols), () => (Math.random() > 0.8 ? 1 : 0)));
@@ -252,7 +253,7 @@ function App() {
         <span></span>
         <span></span>
         random</div>
-        <div className='button' onClick={()=>{
+        <div className='buttonNorm' onClick={()=>{
         stepForward()
       }}>
         <span></span>

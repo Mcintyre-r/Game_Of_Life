@@ -36,7 +36,31 @@ body{
     -webkit-box-reflect: right 1px linear-gradient(transparent,#0005)
 }
 
+.buttonNorm {
+    
+    position: relative;
+    display: inline-block;
+    padding:25px 30px;
+    margin: 40px 20px;
+    color: #fc3e9f;
+    border: 1px solid #fc3e9f;
+    font-size: 24px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    -webkit-box-reflect: below 1px linear-gradient(transparent,#0005)
 
+}
+.buttonNorm:hover {
+    background: #fc3e9f;
+    color: #050801;
+    box-shadow: 0 0 5px #fc3e9f,
+                0 0 25px #fc3e9f,
+                0 0 50px #fc3e9f,
+                0 0 200px #fc3e9f;
+}
 .button {
     
     position: relative;
@@ -62,13 +86,13 @@ body{
                 0 0 200px #fc3e9f;
 }
 
-.button:nth-child(1){
+.buttonNorm:nth-child(2){
     filter:hue-rotate(290deg)
 }
-.button:nth-child(3){
+.buttonNorm:nth-child(3){
     filter:hue-rotate(130deg)
 }
-.button:nth-child(4){
+.buttonNorm:nth-child(4){
     filter:hue-rotate(30deg)
 }
 .button span {
