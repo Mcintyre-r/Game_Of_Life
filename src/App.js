@@ -84,8 +84,7 @@ function App() {
 
 
   const stepForward = (g, n, gen) => {
-    // setGrid((g)=>{
-      
+  
       const newGrid = produce(g, gridCopy => {
         for(let i = 0; i< numRows; i++){
           for(let k = 0; k <numCols; k++){
@@ -116,9 +115,6 @@ function App() {
         setGen(g => gen)
         setGrid(newGrid)
       }
-
-    // })
-    // setGen(gen+1)
   }
 
   const plotLine = (x0, y0, x1, y1, grid) => {
@@ -154,12 +150,12 @@ function handleChange() {
     <>
     <div className='wrap'>
       <div className='wrap box'>
-        <div className='wrap box' style={{justifyContent: 'left', fontSize:13, color:'#FF5733'}}>
+        <div className='wrap box' style={{justifyContent: 'left', fontSize:14, color:'#FF5733', alignItems:'center'}}>
           <div style={{paddingRight:4}}>Erase</div> 
           <Switch onChange={() => handleChange()} checked={line} onColor='FF5733' checkedIcon={false} uncheckedIcon={false} height={11} width={20}/>
           <div style={{paddingLeft:4, paddingRight: 10}}>Draw</div>
         </div>
-        <div className='wrap box'style={{justifyContent: 'flex-end', fontSize:13, color:'#FF5733'}}>
+        <div className='wrap box'style={{justifyContent: 'flex-end', fontSize:14, color:'#FF5733'}}>
           <div>{`Generation: ${gen}`}</div>
         </div>
       </div>
@@ -282,10 +278,10 @@ function handleChange() {
         <img src={logo} alt='logo'/>
 
         <ul style={{marginBottom: '30px'}}>
-          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with less than two live neighbours dies by underpopulation.</li>
-          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with two to three live neighbours live on.</li>
-          <li style={{textAlign: 'left', marginBottom: '30px'}}>Live cells with more than three live neighbours die by overpopulation.</li>
-          <li style={{textAlign: 'left', marginBottom: '30px'}}>Dead cell with three live neighbours becomes a live cell.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px', fontSize:20}}>Live cells with less than two live neighbours dies by underpopulation.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px', fontSize:20}}>Live cells with two to three live neighbours live on.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px', fontSize:20}}>Live cells with more than three live neighbours die by overpopulation.</li>
+          <li style={{textAlign: 'left', marginBottom: '30px', fontSize:20}}>Dead cell with three live neighbours becomes a live cell.</li>
         </ul>
         <div style={{display: 'flex', alignItems: 'center',justifyContent: 'space-around'}}>
           <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
@@ -325,7 +321,7 @@ function handleChange() {
         
       </div>
     </div>
-    <div className='wrap box' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click or drag to toggle cells live or dead</div>
+    <div className='wrap box' style={{fontSize:14, color:'#FF5733', justifyContent:'left'}}>*click or drag to toggle cells live or dead</div>
     <div className='wrap'>
       <div className={running? 'button': 'buttonNorm'} onClick={()=>{
         setRunning(!running);
