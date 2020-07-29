@@ -179,6 +179,7 @@ function handleChange() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     if(!running){
+                      setGen(0)
                       const newGrid = produce(grid, gridCopy => {
                         gridCopy[i][k]= grid[i][k]? 0:1;
                       })
@@ -211,6 +212,7 @@ function handleChange() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     if(!running){
+                      setGen(0)
                       const newGrid = produce(grid, gridCopy => {
                         gridCopy[i][k]= grid[i][k]? 0:1;
                       })
@@ -243,6 +245,7 @@ function handleChange() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     if(!running){
+                      setGen(0)
                       const newGrid = produce(grid, gridCopy => {
                         gridCopy[i][k]= grid[i][k]? 0:1;
                       })
