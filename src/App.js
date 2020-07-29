@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef} from 'react';
 import produce from 'immer';
 import './App.css'
 import logo from './assets/hasbro.png'
-
+import Switch from "react-switch";
 
 const numRows = 20;
 const numCols = 20;
@@ -28,12 +28,17 @@ const generateEmptyGrid = () => {
 
   return rows;
 };
+
+
+
+
 function App() {
   const [grid, setGrid] = useState(()=>{
     return generateEmptyGrid()
   });
   const [prev, setPrev] = useState([0,0])
   const [running, setRunning] = useState(false);
+  const [line, setLine] = useState(true)
 
   const runningRef = useRef(running);
   runningRef.current = running
@@ -105,7 +110,7 @@ function App() {
     const sy = y0<y1 ? 1 : -1;
     let err = dx+dy; 
     while (true) {
-      grid[x0][y0] = 1
+      grid[x0][y0] = line
       if (x0===x1 && y0===y1) {
         break
       }
@@ -122,10 +127,24 @@ function App() {
     }
       
 }
+
+
+function handleChange() {
+  setLine(!line)
+}
   return (
     <>
     <div className='wrap'>
-      <div className='box ref'style={{ border: '1px solid rgba(255,255,255, .5)',display:'grid', gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
+      <div className='wrap box' style={{justifyContent: 'left', fontSize:13, color:'#FF5733'}}>
+        <div style={{paddingRight:4}}>Erase</div> 
+        <Switch onChange={() => handleChange()} checked={line} onColor='FF5733' checkedIcon={false} uncheckedIcon={false} height={11} width={20}/>
+        <div style={{paddingLeft:4}}>Draw</div>
+      </div>
+      <div className='box'></div>
+
+    </div>
+    <div className='wrap'>
+      <div className='box ref'  style={{ border: '1px solid rgba(255,255,255, .5)',display:'grid', gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
         {grid.map((rows,i) => 
           rows.map((col,k) => {
             let neighbors = 0;
@@ -145,16 +164,15 @@ function App() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      gridCopy[i][k]= grid[i][k]? 0:1;
                     })
                     setGrid(newGrid)
                   }}
-                  onMousedown={()=>{return false}}
                   onMouseOver={(e)=>{
                     if((e.buttons&1) === 1){
                       const newGrid = produce(grid, gridCopy => {
                         plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                        gridCopy[i][k]= line ? 1: 0;
                       })
                       setGrid(newGrid)
                     }
@@ -174,16 +192,15 @@ function App() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      gridCopy[i][k]= grid[i][k]? 0:1;
                     })
                     setGrid(newGrid)
                   }}
-                  onMousedown={()=>{return false}}
                   onMouseOver={(e)=>{
                     if((e.buttons&1) === 1){
                       const newGrid = produce(grid, gridCopy => {
                         plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                        gridCopy[i][k]= line ? 1: 0;
                       })
                       setGrid(newGrid)
                     }
@@ -203,16 +220,15 @@ function App() {
                   key={`${i}-${k}`}
                   onClick={()=>{
                     const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      gridCopy[i][k]= grid[i][k]? 0:1;
                     })
                     setGrid(newGrid)
                   }}
-                  onMousedown={()=>{return false}}
                   onMouseOver={(e)=>{
                     if((e.buttons&1) === 1){
                       const newGrid = produce(grid, gridCopy => {
                         plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                        gridCopy[i][k]= line ? 1: 0;
                       })
                       setGrid(newGrid)
                     }
