@@ -19,6 +19,7 @@ const operations = [
 
 
 
+
 const generateEmptyGrid = () => {
   const rows = [];
   for (let i = 0; i < numRows; i++) {
@@ -31,8 +32,9 @@ function App() {
   const [grid, setGrid] = useState(()=>{
     return generateEmptyGrid()
   });
-
+  const [prev, setPrev] = useState([0,0])
   const [running, setRunning] = useState(false);
+
   const runningRef = useRef(running);
   runningRef.current = running
   const runSimulation = useCallback(()=>{
@@ -95,7 +97,31 @@ function App() {
       })
     })
   }
-  // console.log(grid)
+
+  const plotLine = (x0, y0, x1, y1, grid) => {
+    const dx =  Math.abs(x1-x0);
+    const sx = x0<x1 ? 1 : -1;
+    const dy = -Math.abs(y1-y0);
+    const sy = y0<y1 ? 1 : -1;
+    let err = dx+dy; 
+    while (true) {
+      grid[x0][y0] = 1
+      if (x0===x1 && y0===y1) {
+        break
+      }
+      let e2 = 2*err;
+      if (e2 >= dy) {
+        err += dy;
+        x0 += sx;
+      }
+      if (e2 <= dx) {
+        err += dx;
+        y0 += sy;
+      }
+      
+    }
+      
+}
   return (
     <>
     <div className='wrap'>
@@ -123,6 +149,17 @@ function App() {
                     })
                     setGrid(newGrid)
                   }}
+                  onMousedown={()=>{return false}}
+                  onMouseOver={(e)=>{
+                    if((e.buttons&1) === 1){
+                      const newGrid = produce(grid, gridCopy => {
+                        plotLine(prev[0], prev[1], i, k,gridCopy)
+                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      })
+                      setGrid(newGrid)
+                    }
+                    setPrev([i,k])   
+                  }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
                     width:20,
@@ -140,6 +177,17 @@ function App() {
                       gridCopy[i][k]= grid[i][k] ? 0 : 1;
                     })
                     setGrid(newGrid)
+                  }}
+                  onMousedown={()=>{return false}}
+                  onMouseOver={(e)=>{
+                    if((e.buttons&1) === 1){
+                      const newGrid = produce(grid, gridCopy => {
+                        plotLine(prev[0], prev[1], i, k,gridCopy)
+                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      })
+                      setGrid(newGrid)
+                    }
+                    setPrev([i,k])   
                   }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
@@ -159,6 +207,17 @@ function App() {
                     })
                     setGrid(newGrid)
                   }}
+                  onMousedown={()=>{return false}}
+                  onMouseOver={(e)=>{
+                    if((e.buttons&1) === 1){
+                      const newGrid = produce(grid, gridCopy => {
+                        plotLine(prev[0], prev[1], i, k,gridCopy)
+                        gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                      })
+                      setGrid(newGrid)
+                    }
+                    setPrev([i,k])   
+                  }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
                     width:20,
@@ -173,7 +232,6 @@ function App() {
       )}
       </div>
       <div className='box'>
-        {/* <h1 style={{marginBottom: '40px'}}>Conway's Game of Life</h1> */}
         <img src={logo} alt='logo'/>
 
         <ul style={{marginBottom: '30px'}}>
