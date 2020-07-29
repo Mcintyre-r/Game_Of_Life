@@ -83,9 +83,10 @@ function App() {
   },[])
 
 
-  const stepForward = () => {
-    setGrid((g)=>{
-      return produce(g, gridCopy => {
+  const stepForward = (g, n, gen) => {
+    // setGrid((g)=>{
+      
+      const newGrid = produce(g, gridCopy => {
         for(let i = 0; i< numRows; i++){
           for(let k = 0; k <numCols; k++){
             let neighbors = 0;
@@ -107,8 +108,17 @@ function App() {
           }
         }
       })
-    })
-    setGen(gen+1)
+      n -=1
+      gen += 1
+      if(n !== 0) {
+        stepForward(newGrid, n, gen)
+      } else {
+        setGen(g => gen)
+        setGrid(newGrid)
+      }
+
+    // })
+    // setGen(gen+1)
   }
 
   const plotLine = (x0, y0, x1, y1, grid) => {
@@ -353,13 +363,21 @@ function handleChange() {
         <span></span>
         random</div>
         <div className='buttonNorm' onClick={()=>{
-        stepForward()
+        stepForward(grid, 1, gen)
       }}>
         <span></span>
         <span></span>
         <span></span>
         <span></span>
         Step</div>
+        <div className='buttonNorm' onClick={()=>{
+        stepForward(grid, 5, gen)
+      }}>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Step 5</div>
     </div>
    
     </>
