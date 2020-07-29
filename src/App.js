@@ -41,14 +41,10 @@ function App() {
   const [line, setLine] = useState(true)
   const [gen, setGen] = useState(0)
 
-
-
-
-
-
-
   const runningRef = useRef(running);
   runningRef.current = running
+
+
   const runSimulation = useCallback(()=>{
     if(!runningRef.current){
       return
@@ -84,7 +80,6 @@ function App() {
 
 
   const stepForward = (g, n, gen) => {
-  
       const newGrid = produce(g, gridCopy => {
         for(let i = 0; i< numRows; i++){
           for(let k = 0; k <numCols; k++){
@@ -107,8 +102,10 @@ function App() {
           }
         }
       })
+
       n -=1
       gen += 1
+
       if(n !== 0) {
         stepForward(newGrid, n, gen)
       } else {
@@ -117,6 +114,7 @@ function App() {
       }
   }
 
+
   const plotLine = (x0, y0, x1, y1, grid) => {
     const dx =  Math.abs(x1-x0);
     const sx = x0<x1 ? 1 : -1;
@@ -124,7 +122,7 @@ function App() {
     const sy = y0<y1 ? 1 : -1;
     let err = dx+dy; 
     while (true) {
-      grid[x0][y0] = line
+      grid[x0][y0] = line? 1 : 0
       if (x0===x1 && y0===y1) {
         break
       }
@@ -146,6 +144,9 @@ function App() {
 function handleChange() {
   setLine(!line)
 }
+
+
+
   return (
     <>
     <div className='wrap'>
