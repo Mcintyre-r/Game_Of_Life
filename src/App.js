@@ -278,7 +278,7 @@ function App() {
         
       </div>
     </div>
-    <div className='wrap' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click to toggle cells live or dead</div>
+    <div className='wrap' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click or drag to toggle cells live or dead</div>
     <div className='wrap'>
       <div className={running? 'button': 'buttonNorm'} onClick={()=>{
         setRunning(!running);
