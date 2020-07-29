@@ -101,25 +101,74 @@ function App() {
       <div className='box ref'style={{ border: '1px solid rgba(255,255,255, .5)',display:'grid', gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
         {grid.map((rows,i) => 
           rows.map((col,k) => {
-            let rainbow = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-            return(
-          <div
-            key={`${i}-${k}`}
-            onClick={()=>{
-              const newGrid = produce(grid, gridCopy => {
-                gridCopy[i][k]= grid[i][k] ? 0 : 1;
-              })
-              setGrid(newGrid)
-            }}
-            className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
-            style={{
-              width:20,
-              height:20,
-              // border: grid[i][k] ? `solid 1px ${rainbow}`: undefined,
-              backgroundColor: grid[i][k] ? rainbow: undefined,
-            }}
-          />
-        )})
+            let neighbors = 0;
+            operations.forEach(([x,y]) => {
+              
+              const newI = i + x;
+              const newK = k + y;
+              
+              if (newI >=0 && newI < numRows && newK >= 0 && newK < numCols){
+                neighbors += grid[newI][newK];
+              }
+            });
+
+            if (neighbors < 2){
+              return(
+                <div
+                  key={`${i}-${k}`}
+                  onClick={()=>{
+                    const newGrid = produce(grid, gridCopy => {
+                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                    })
+                    setGrid(newGrid)
+                  }}
+                  className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
+                  style={{
+                    width:20,
+                    height:20,
+                    backgroundColor: grid[i][k] ? '#F98B73': undefined,
+                  }}
+                />
+              )
+            } else if( neighbors >3){
+              return(
+                <div
+                  key={`${i}-${k}`}
+                  onClick={()=>{
+                    const newGrid = produce(grid, gridCopy => {
+                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                    })
+                    setGrid(newGrid)
+                  }}
+                  className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
+                  style={{
+                    width:20,
+                    height:20,
+                    backgroundColor: grid[i][k] ? '#941B00': undefined,
+                  }}
+                />
+              )
+            } else{
+              return(
+                <div
+                  key={`${i}-${k}`}
+                  onClick={()=>{
+                    const newGrid = produce(grid, gridCopy => {
+                      gridCopy[i][k]= grid[i][k] ? 0 : 1;
+                    })
+                    setGrid(newGrid)
+                  }}
+                  className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
+                  style={{
+                    width:20,
+                    height:20,
+                    backgroundColor: grid[i][k] ? '#FF5733': undefined,
+                  }}
+                />
+              )
+            }
+            
+            })
       )}
       </div>
       <div className='box'>
