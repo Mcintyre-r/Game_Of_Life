@@ -4,8 +4,8 @@ import './App.css'
 import logo from './assets/hasbro.png'
 import Switch from "react-switch";
 
-const numRows = 20;
-const numCols = 20;
+const numRows = 25;
+const numCols = 25;
 const operations = [
   [0,1],
   [0,-1],
@@ -39,6 +39,13 @@ function App() {
   const [prev, setPrev] = useState([0,0])
   const [running, setRunning] = useState(false);
   const [line, setLine] = useState(true)
+  const [gen, setGen] = useState(0)
+
+
+
+
+
+
 
   const runningRef = useRef(running);
   runningRef.current = running
@@ -71,7 +78,7 @@ function App() {
       })
     })
 
-
+    setGen(g => g+1)
     setTimeout(runSimulation, 500)
   },[])
 
@@ -101,6 +108,7 @@ function App() {
         }
       })
     })
+    setGen(gen+1)
   }
 
   const plotLine = (x0, y0, x1, y1, grid) => {
@@ -135,13 +143,17 @@ function handleChange() {
   return (
     <>
     <div className='wrap'>
-      <div className='wrap box' style={{justifyContent: 'left', fontSize:13, color:'#FF5733'}}>
-        <div style={{paddingRight:4}}>Erase</div> 
-        <Switch onChange={() => handleChange()} checked={line} onColor='FF5733' checkedIcon={false} uncheckedIcon={false} height={11} width={20}/>
-        <div style={{paddingLeft:4}}>Draw</div>
+      <div className='wrap box'>
+        <div className='wrap box' style={{justifyContent: 'left', fontSize:13, color:'#FF5733'}}>
+          <div style={{paddingRight:4}}>Erase</div> 
+          <Switch onChange={() => handleChange()} checked={line} onColor='FF5733' checkedIcon={false} uncheckedIcon={false} height={11} width={20}/>
+          <div style={{paddingLeft:4, paddingRight: 10}}>Draw</div>
+        </div>
+        <div className='wrap box'style={{justifyContent: 'flex-end', fontSize:13, color:'#FF5733'}}>
+          <div>{`Generation: ${gen}`}</div>
+        </div>
       </div>
       <div className='box'></div>
-
     </div>
     <div className='wrap'>
       <div className='box ref'  style={{ border: '1px solid rgba(255,255,255, .5)',display:'grid', gridTemplateColumns: `repeat(${numCols}, 20px)`}}>
@@ -149,34 +161,35 @@ function handleChange() {
           rows.map((col,k) => {
             let neighbors = 0;
             operations.forEach(([x,y]) => {
-              
               const newI = i + x;
               const newK = k + y;
-              
               if (newI >=0 && newI < numRows && newK >= 0 && newK < numCols){
                 neighbors += grid[newI][newK];
               }
             });
-
             if (neighbors < 2){
               return(
                 <div
                   key={`${i}-${k}`}
                   onClick={()=>{
-                    const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k]? 0:1;
-                    })
-                    setGrid(newGrid)
-                  }}
-                  onMouseOver={(e)=>{
-                    if((e.buttons&1) === 1){
+                    if(!running){
                       const newGrid = produce(grid, gridCopy => {
-                        plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= line ? 1: 0;
+                        gridCopy[i][k]= grid[i][k]? 0:1;
                       })
                       setGrid(newGrid)
                     }
-                    setPrev([i,k])   
+                  }}
+                  onMouseOver={(e)=>{
+                    if(!running){
+                      if((e.buttons&1) === 1){
+                        const newGrid = produce(grid, gridCopy => {
+                          plotLine(prev[0], prev[1], i, k,gridCopy)
+                          gridCopy[i][k]= line ? 1: 0;
+                        })
+                        setGrid(newGrid)
+                      }
+                      setPrev([i,k])
+                    }   
                   }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
@@ -191,20 +204,24 @@ function handleChange() {
                 <div
                   key={`${i}-${k}`}
                   onClick={()=>{
-                    const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k]? 0:1;
-                    })
-                    setGrid(newGrid)
-                  }}
-                  onMouseOver={(e)=>{
-                    if((e.buttons&1) === 1){
+                    if(!running){
                       const newGrid = produce(grid, gridCopy => {
-                        plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= line ? 1: 0;
+                        gridCopy[i][k]= grid[i][k]? 0:1;
                       })
                       setGrid(newGrid)
                     }
-                    setPrev([i,k])   
+                  }}
+                  onMouseOver={(e)=>{
+                    if(!running){
+                      if((e.buttons&1) === 1){
+                        const newGrid = produce(grid, gridCopy => {
+                          plotLine(prev[0], prev[1], i, k,gridCopy)
+                          gridCopy[i][k]= line ? 1: 0;
+                        })
+                        setGrid(newGrid)
+                      }
+                      setPrev([i,k])  
+                    } 
                   }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
@@ -219,20 +236,24 @@ function handleChange() {
                 <div
                   key={`${i}-${k}`}
                   onClick={()=>{
-                    const newGrid = produce(grid, gridCopy => {
-                      gridCopy[i][k]= grid[i][k]? 0:1;
-                    })
-                    setGrid(newGrid)
-                  }}
-                  onMouseOver={(e)=>{
-                    if((e.buttons&1) === 1){
+                    if(!running){
                       const newGrid = produce(grid, gridCopy => {
-                        plotLine(prev[0], prev[1], i, k,gridCopy)
-                        gridCopy[i][k]= line ? 1: 0;
+                        gridCopy[i][k]= grid[i][k]? 0:1;
                       })
                       setGrid(newGrid)
                     }
-                    setPrev([i,k])   
+                  }}
+                  onMouseOver={(e)=>{
+                    if(!running){
+                      if((e.buttons&1) === 1){
+                        const newGrid = produce(grid, gridCopy => {
+                          plotLine(prev[0], prev[1], i, k,gridCopy)
+                          gridCopy[i][k]= line ? 1: 0;
+                        })
+                        setGrid(newGrid)
+                      }
+                      setPrev([i,k])   
+                    }
                   }}
                   className={`cellHov ${grid[i][k] ? 'cell':undefined}`}
                   style={{
@@ -294,7 +315,7 @@ function handleChange() {
         
       </div>
     </div>
-    <div className='wrap' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click or drag to toggle cells live or dead</div>
+    <div className='wrap box' style={{fontSize:10, color:'#FF5733', justifyContent:'left'}}>*click or drag to toggle cells live or dead</div>
     <div className='wrap'>
       <div className={running? 'button': 'buttonNorm'} onClick={()=>{
         setRunning(!running);
@@ -310,6 +331,7 @@ function handleChange() {
         {running? "stop.":"start"}</div>
       <div className='buttonNorm' onClick={()=>{
         setGrid(generateEmptyGrid())
+        setGen(0)
       }}>
         <span></span>
         <span></span>
@@ -323,6 +345,7 @@ function handleChange() {
           }
 
           setGrid(rows)
+          setGen(0)
       }}>
         <span></span>
         <span></span>
